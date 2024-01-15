@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>internship assignment</title>
+
+    <style>
+        button{
+            border: none;
+            background: transparent;
+        }
+        .container{
+            width: 100%;
+            display: flex;
+            
+        }
+
+        .right{
+            width: 100%;
+        }
+        .right .header{
+            text-align: center;
+        }
+
+        .left{
+            width: 50%;
+            position: relative;
+            height: 100vh;
+        }
+
+        .left input[type="search"]{
+            position: absolute;
+            left: 0;
+        }
+        .left input[type="number"]{
+            position: absolute;
+            left: 0;
+            top: 3rem;
+        }
+        .left input[type="color"]{
+            position: absolute;
+            border: none;
+            right: 2rem;
+            top: 3rem;
+        }
+        .left button[type="submit"]{
+            position: absolute;
+            bottom: 2rem;
+          
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="right">
+            <div class="header">
+                <button type="button">redo</button>
+                <button type="button">undo</button>
+            </div>
+            <div class="content"></div>
+        </div>
+        <div class="left">
+            <select id="font-type" onchange="changeFont('font-type', this.value)">
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option>
+            </select>
+          <input type="number" id="font-size" min="8" max="72" value="16" placeholder="font size" onchange="changeFontSize('font-size',this.value)">
+          <input type="color" id="font-color" value="#000000" placeholder="" onchange="changeFontColor('font-color',this.value)">
+          <button type="submit" onclick="createTextbox()">Add Textbox</button>
+        </div>
+    </div>
+
+    <script>
+
+ function createTextbox()
+        {
+ var textbox = document.createElement("input");
+textbox.type = "text";
+textbox.id="editor";
+textbox.contenteditable="true";
+document.querySelector(".content").appendChild(textbox);
+        }
+
+        function changeFont(id, value) {
+        document.getElementById("editor").style.fontFamily = value;
+    }
+    function changeFontSize(id, value) {
+        document.getElementById("editor").style.fontSize = value + "px";
+    }
+    function changeFontColor(id, value) {
+        document.getElementById("editor").style.color = value;
+    }
+
+    </script>
+</body>
+</html>
