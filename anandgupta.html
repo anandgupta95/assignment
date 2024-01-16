@@ -28,13 +28,14 @@
             height: 100vh;
         }
 
-        .left input[type="search"]{
+        .left select{
             position: absolute;
-            left: 0;
+            left: 1rem;
+            top:1rem;
         }
         .left input[type="number"]{
             position: absolute;
-            left: 0;
+            left: 1rem;
             top: 3rem;
         }
         .left input[type="color"]{
@@ -45,10 +46,10 @@
         }
         .left button[type="submit"]{
             position: absolute;
-            bottom: 2rem;
+            bottom:5rem;
         }
         .content{
-            background-color: rgb(31, 139, 47);
+            background-color: rgba(210, 239, 231, 0.995);
             height: 100vh;
             width: 100%;
         }
@@ -67,7 +68,7 @@
             </select>
             <input type="number" id="font-size" min="8" max="72" value="16" placeholder="font size" onchange="changeFontSize(this.value)">
             <input type="color" id="font-color" value="#000000" placeholder="" onchange="changeFontColor(this.value)">
-            <button type="submit" aria-placeholder="Text box" onclick="createTextbox()">Add Textbox</button>
+            <button type="submit"  onclick="createTextbox()">Add Textbox</button>
         </div>
     </div>
 
