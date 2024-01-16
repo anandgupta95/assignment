@@ -58,16 +58,18 @@
                 <button type="button">redo</button>
                 <button type="button">undo</button>
             </div>
-            <div class="content"></div>
+            <div class="content">
+                
+            </div>
         </div>
         <div class="left">
-            <select id="font-type" onchange="changeFont('font-type', this.value)">
+            <select onchange="changeFont(this.value)">
                 <option value="Arial">Arial</option>
                 <option value="Times New Roman">Times New Roman</option>
                 <option value="Courier New">Courier New</option>
             </select>
-          <input type="number" id="font-size" min="8" max="72" value="16" placeholder="font size" onchange="changeFontSize('font-size',this.value)">
-          <input type="color" id="font-color" value="#000000" placeholder="" onchange="changeFontColor('font-color',this.value)">
+          <input type="number" id="font-size" min="8" max="72" value="16" placeholder="font size" onchange="changeFontSize(this.value)">
+          <input type="color" id="font-color" value="#000000" placeholder="" onchange="changeFontColor(this.value)">
           <button type="submit" onclick="createTextbox()">Add Textbox</button>
         </div>
     </div>
@@ -78,20 +80,45 @@
         {
  var textbox = document.createElement("input");
 textbox.type = "text";
-textbox.id="editor";
+textbox.id="textbox";
 textbox.contenteditable="true";
 document.querySelector(".content").appendChild(textbox);
+  move("textbox");
         }
 
-        function changeFont(id, value) {
-        document.getElementById("editor").style.fontFamily = value;
+        function changeFont(value) {
+        document.getElementById("textbox").style.fontFamily = value;
     }
-    function changeFontSize(id, value) {
-        document.getElementById("editor").style.fontSize = value + "px";
+    function changeFontSize(value) {
+        document.getElementById("textbox").style.fontSize = value + "px";
     }
-    function changeFontColor(id, value) {
-        document.getElementById("editor").style.color = value;
+    function changeFontColor(value) {
+        document.getElementById("textbox").style.color = value;
     }
+    
+function move(id){
+    const selectedObject = document.getElementById("textbox");
+
+let isDragging = false;
+
+selectedObject.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    offsetX = e.clientX - selectedObject.getBoundingClientRect().left;
+    offsetY = e.clientY - selectedObject.getBoundingClientRect().top;
+});
+
+document.addEventListener("mouseup", () => {
+    isDragging = false;
+});
+
+document.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+        selectedObject.style.left = e.clientX - offsetX + "px";
+        selectedObject.style.top = e.clientY - offsetY + "px";
+    }
+});
+}
+
 
     </script>
 </body>

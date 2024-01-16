@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop Textbox</title>
+    <style>
+        /* Apply styles for the draggable textbox */
+        .draggable {
+            position: absolute;
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Create a draggable textbox -->
+<input type="text" id="draggableTextbox" class="draggable" value="Drag me!">
+
+<script>
+// Get the draggable textbox element
+var draggableTextbox = document.getElementById("draggableTextbox");
+
+// Variables to store the initial mouse position and the textbox position
+var offsetX, offsetY, isDragging = false;
+
+// Add event listeners for mouse events
+draggableTextbox.addEventListener("mousedown", startDrag);
+document.addEventListener("mousemove", drag);
+document.addEventListener("mouseup", stopDrag);
+
+// Function to start dragging
+function startDrag(event) {
+    // Save the initial mouse position and the current textbox position
+    offsetX = event.clientX - draggableTextbox.getBoundingClientRect().left;
+    offsetY = event.clientY - draggableTextbox.getBoundingClientRect().top;
+    isDragging = true;
+
+    // Add a class to change the appearance while dragging (optional)
+    draggableTextbox.classList.add("dragging");
+}
+
+// Function to handle dragging
+function drag(event) {
+    if (isDragging) {
+        // Calculate the new position of the textbox based on the mouse movement
+        var newX = event.clientX - offsetX;
+        var newY = event.clientY - offsetY;
+
+        // Set the new position
+        draggableTextbox.style.left = newX + "px";
+        draggableTextbox.style.top = newY + "px";
+    }
+}
+
+// Function to stop dragging
+function stopDrag() {
+    // Reset variables and remove the dragging class (optional)
+    isDragging = false;
+    draggableTextbox.classList.remove("dragging");
+}
+
+</script>
+
+</body>
+</html>

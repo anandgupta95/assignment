@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship Assignment</title>
+
+    <style>
+        button{
+            border: none;
+            background: transparent;
+        }
+        .container{
+            width: 100%;
+            display: flex;
+        }
+
+        .right{
+            width: 100%;
+        }
+        .right .header{
+            text-align: center;
+        }
+
+        .left{
+            width: 50%;
+            position: relative;
+            height: 100vh;
+        }
+
+        .left input[type="search"]{
+            position: absolute;
+            left: 0;
+        }
+        .left input[type="number"]{
+            position: absolute;
+            left: 0;
+            top: 3rem;
+        }
+        .left input[type="color"]{
+            position: absolute;
+            border: none;
+            right: 2rem;
+            top: 3rem;
+        }
+        .left button[type="submit"]{
+            position: absolute;
+            bottom: 2rem;
+        }
+        .content{
+            background-color: rgb(31, 139, 47);
+            height: 100vh;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="right">
+            <div class="content"></div>
+        </div>
+        <div class="left">
+            <select onchange="changeFont(this.value)">
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option>
+            </select>
+            <input type="number" id="font-size" min="8" max="72" value="16" placeholder="font size" onchange="changeFontSize(this.value)">
+            <input type="color" id="font-color" value="#000000" placeholder="" onchange="changeFontColor(this.value)">
+            <button type="submit" aria-placeholder="Text box" onclick="createTextbox()">Add Textbox</button>
+        </div>
+    </div>
+
+    <script>
+        var i = 0;
+        var selectedTextboxId = "";
+
+        function createTextbox() {
+            i = i + 1;
+            var id = "textbox" + i;
+            console.log(id);
+            var textbox = document.createElement("input");
+            textbox.type = "text";
+            textbox.placeholder = "text box";
+            textbox.id = id;
+            textbox.contenteditable = "true";
+
+            document.querySelector(".content").appendChild(textbox);
+            document.getElementById(id).style.position = "absolute";
+            document.getElementById(id).style.cursor = "move";
+            document.getElementById(id).style.border = "white";
+            document.getElementById(id).style.background = "transparent";
+            document.getElementById(id).style.color = "white";
+            move(id);
+        }
+
+        function changeFont(value) {
+            if (selectedTextboxId) {
+                document.getElementById(selectedTextboxId).style.fontFamily = value;
+            }
+        }
+
+        function changeFontSize(value) {
+            if (selectedTextboxId) {
+                document.getElementById(selectedTextboxId).style.fontSize = value + "px";
+            }
+        }
+
+        function changeFontColor(value) {
+            if (selectedTextboxId) {
+                document.getElementById(selectedTextboxId).style.color = value;
+            }
+        }
+
+        function move(id) {
+            const selectedObject = document.getElementById(id);
+
+            selectedObject.addEventListener("click", () => {
+                selectedTextboxId = id;
+            });
+
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            selectedObject.addEventListener("mousedown", (e) => {
+                isDragging = true;
+                offsetX = e.clientX - selectedObject.getBoundingClientRect().left;
+                offsetY = e.clientY - selectedObject.getBoundingClientRect().top;
+            });
+
+            document.addEventListener("mouseup", () => {
+                isDragging = false;
+            });
+
+            document.addEventListener("mousemove", (e) => {
+                if (isDragging) {
+                    selectedObject.style.left = e.clientX - offsetX + "px";
+                    selectedObject.style.top = e.clientY - offsetY + "px";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
